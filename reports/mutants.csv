@@ -1,0 +1,7 @@
+mutant,status,failed,tests
+M1,killed,2,test_functions.py::TestReq02::test_edge_duration[case4] | test_functions.py::TestReq02::test_edge_duration[case6]
+M2,killed,2,test_parking.py::TestReq06::test_edge_debt[case2] | test_parking.py::TestReq06::test_negative_debt_limit
+M3,killed,1,test_parking.py::TestReq09::test_edge_duplicate_preserves_state
+M4,killed,2,test_parking.py::TestReq12::test_positive_ticket[case2] | test_parking.py::TestReq12::test_edge_ticket_above_cap[case1]
+M5,killed,3,test_functions.py::TestReq03::test_edge_fee[case5] | test_functions.py::TestReq04::test_edge_fee[case6] | test_parking.py::TestReq12::test_edge_ticket_above_cap[case1]
+M6,killed,2,test_functions.py::TestReq03::test_edge_fee[case3] | test_functions.py::TestReq03::test_edge_fee[case4]

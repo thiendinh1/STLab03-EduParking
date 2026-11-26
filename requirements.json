@@ -1,0 +1,14 @@
+{
+  "REQ-01": "Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",
+  "REQ-02": "Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",
+  "REQ-03": "MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",
+  "REQ-04": "CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",
+  "REQ-05": "Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY",
+  "REQ-06": "Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",
+  "REQ-07": "Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",
+  "REQ-08": "Bãi đầy báo LOT_FULL; dữ liệu không đổi",
+  "REQ-09": "Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi",
+  "REQ-10": "Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",
+  "REQ-11": "Check-out xe không có trong bãi báo NOT_INSIDE",
+  "REQ-12": "Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu"
+}

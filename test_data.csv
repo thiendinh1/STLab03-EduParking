@@ -1,0 +1,65 @@
+REQ,Loại,Tiền điều kiện,Input,Expected,Căn cứ,Assertion,Test
+REQ-01,positive,Hàm thuần,{'plate': '59A-12345'},True,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_positive_plate_format[case1]
+REQ-01,negative,Hàm thuần,{'plate': ''},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case1]
+REQ-01,negative,Hàm thuần,{'plate': '59a-12345'},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case2]
+REQ-01,negative,Hàm thuần,{'plate': '59A12345'},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case3]
+REQ-01,negative,Hàm thuần,{'plate': '59A-1234'},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case4]
+REQ-01,negative,Hàm thuần,{'plate': '59A-123456'},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case5]
+REQ-01,edge,Hàm thuần,{'plate': '00A-00000'},True,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_edge_plate_format[case1]
+REQ-01,edge,Hàm thuần,{'plate': '99Z-99999'},True,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_edge_plate_format[case2]
+REQ-02,positive,Hàm thuần,{'seconds': 1800},1,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_positive_duration[case1]
+REQ-02,edge,Hàm thuần,{'seconds': 0},1,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case1]
+REQ-02,edge,Hàm thuần,{'seconds': 1},1,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case2]
+REQ-02,edge,Hàm thuần,{'seconds': 3599},1,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case3]
+REQ-02,edge,Hàm thuần,{'seconds': 3600},1,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case4]
+REQ-02,edge,Hàm thuần,{'seconds': 3601},2,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case5]
+REQ-02,edge,Hàm thuần,{'seconds': 7200},2,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",equality,test_edge_duration[case6]
+REQ-02,negative,Ra sớm 1 giây,Ra sớm 1 giây,INVALID_TIME,"Giờ gửi làm tròn LÊN theo giờ, tối thiểu 1 giờ; đúng 60 phút tính 1 giờ; giờ ra trước giờ vào báo INVALID_TIME",raises,test_negative_reversed_time
+REQ-03,positive,MOTORBIKE,{'hours': 2},5000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_positive_fee[case1]
+REQ-03,edge,MOTORBIKE,{'hours': 1},5000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_edge_fee[case1]
+REQ-03,edge,MOTORBIKE,{'hours': 4},5000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_edge_fee[case2]
+REQ-03,edge,MOTORBIKE,{'hours': 5},7000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_edge_fee[case3]
+REQ-03,edge,MOTORBIKE,{'hours': 16},29000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_edge_fee[case4]
+REQ-03,edge,MOTORBIKE,{'hours': 17},30000,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",equality,test_edge_fee[case5]
+REQ-03,negative,MOTORBIKE,{'hours': 0},INVALID_HOURS,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",raises,test_negative_hours[case1]
+REQ-03,negative,MOTORBIKE,{'hours': -1},INVALID_HOURS,"MOTORBIKE: 5.000đ cho 4 giờ đầu, thêm 2.000đ/giờ, tối đa 30.000đ; số giờ < 1 báo INVALID_HOURS",raises,test_negative_hours[case2]
+REQ-04,positive,CAR,{'hours': 5},50000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_positive_fee[case1]
+REQ-04,edge,CAR,{'hours': 1},20000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case1]
+REQ-04,edge,CAR,{'hours': 2},20000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case2]
+REQ-04,edge,CAR,{'hours': 3},30000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case3]
+REQ-04,edge,CAR,{'hours': 19},190000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case4]
+REQ-04,edge,CAR,{'hours': 20},200000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case5]
+REQ-04,edge,CAR,{'hours': 21},200000,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",equality,test_edge_fee[case6]
+REQ-04,negative,"TRUCK, 1 giờ","TRUCK, 1 giờ",INVALID_VEHICLE,"CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",raises,test_negative_unknown_fee
+REQ-04,negative,"Bãi trống, A, TRUCK","Bãi trống, A, TRUCK","INVALID_VEHICLE, giữ state","CAR: 20.000đ cho 2 giờ đầu, thêm 10.000đ/giờ, tối đa 200.000đ; loại xe khác báo INVALID_VEHICLE (cả khi check-in)",raises + state,test_negative_unknown_entry
+REQ-05,positive,Hàm thuần,"{'occupied': 1, 'capacity': 3}",33.333333333,Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY,approx,test_positive_occupancy[case1]
+REQ-05,edge,Hàm thuần,"{'occupied': 0, 'capacity': 10}",0,Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY,approx,test_edge_occupancy[case1]
+REQ-05,edge,Hàm thuần,"{'occupied': 10, 'capacity': 10}",100,Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY,approx,test_edge_occupancy[case2]
+REQ-05,negative,Hàm thuần,{'capacity': 0},INVALID_CAPACITY,Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY,raises,test_negative_capacity[case1]
+REQ-05,negative,Hàm thuần,{'capacity': -1},INVALID_CAPACITY,Tỉ lệ lấp đầy = số xe / sức chứa × 100; sức chứa ≤ 0 báo INVALID_CAPACITY,raises,test_negative_capacity[case2]
+REQ-06,positive,"A hợp lệ, ngoài blacklist",{'debt': 0},True,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_positive_debt[case1]
+REQ-06,edge,"A hợp lệ, ngoài blacklist",{'debt': 99999},True,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_edge_debt[case1]
+REQ-06,edge,"A hợp lệ, ngoài blacklist",{'debt': 100000},False,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_edge_debt[case2]
+REQ-06,edge,"A hợp lệ, ngoài blacklist",{'debt': 100001},False,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_edge_debt[case3]
+REQ-06,negative,bad_plate,bad_plate,NOT_ALLOWED; state giữ nguyên,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",raises + state,test_negative_bad_plate
+REQ-06,negative,bad_plate,bad_plate,False,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_negative_can_enter_bad_plate
+REQ-06,negative,blacklist,blacklist,NOT_ALLOWED; state giữ nguyên,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",raises + state,test_negative_blacklist
+REQ-06,negative,blacklist,blacklist,False,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",boolean,test_negative_can_enter_blacklist
+REQ-06,negative,debt_limit,debt_limit,NOT_ALLOWED; state giữ nguyên,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",raises + state,test_negative_debt_limit
+REQ-06,negative,Biển sai và TRUCK,Biển sai và TRUCK,NOT_ALLOWED; state giữ nguyên,"Được vào khi: biển số hợp lệ, không trong danh sách đen, nợ DƯỚI 100.000đ; ngược lại check-in báo NOT_ALLOWED",raises + state,test_negative_eligibility_before_vehicle
+REQ-07,positive,"Bãi trống, nhận A/CAR","Bãi trống, nhận A/CAR","1 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_positive_first_entry
+REQ-07,edge,"B đã vào, nhận A/CAR","B đã vào, nhận A/CAR","2 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_edge_last_space
+REQ-07,positive,"Bãi trống, nhận A/CAR","Bãi trống, nhận A/CAR","1 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_positive_recorded_vehicle
+REQ-08,negative,"Bãi 2/2, biển mới","Bãi 2/2, biển mới",LOT_FULL; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_negative_full
+REQ-08,edge,"Bãi 2/2, A đã ở trong","Bãi 2/2, A đã ở trong",LOT_FULL; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_edge_full_before_duplicate
+REQ-08,negative,"Bãi đầy, trùng biển, TRUCK","Bãi đầy, trùng biển, TRUCK",INVALID_VEHICLE; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_negative_vehicle_before_full
+REQ-09,negative,"A đã vào, còn 1 chỗ","A đã vào, còn 1 chỗ",ALREADY_INSIDE,Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi,raises,test_negative_duplicate_error
+REQ-09,edge,"A đã vào, nhập lại với loại/giờ khác","A đã vào, nhập lại với loại/giờ khác",ALREADY_INSIDE; state giữ nguyên,Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi,raises + state,test_edge_duplicate_preserves_state
+REQ-10,positive,"Chỉ A, ra sau 30 phút, thu cũ 7.000","Chỉ A, ra sau 30 phút, thu cũ 7.000","Phí 20.000, thu 27.000, xóa riêng A","Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",equality,test_positive_removes_car
+REQ-10,positive,"A và B, ra sau 30 phút, thu cũ 7.000","A và B, ra sau 30 phút, thu cũ 7.000","Phí 20.000, thu 27.000, xóa riêng A","Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",equality,test_positive_keeps_other
+REQ-10,negative,A ra sớm 1 giây,A ra sớm 1 giây,INVALID_TIME; state giữ nguyên,"Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",raises + state,test_negative_clock_reversed
+REQ-11,negative,"Bãi trống, A vắng","Bãi trống, A vắng",NOT_INSIDE; state giữ nguyên,Check-out xe không có trong bãi báo NOT_INSIDE,raises + state,test_negative_absent
+REQ-11,edge,"B đã vào, A vắng","B đã vào, A vắng",NOT_INSIDE; state giữ nguyên,Check-out xe không có trong bãi báo NOT_INSIDE,raises + state,test_edge_other_car
+REQ-12,positive,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 30, 'lost': False}",20000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_positive_ticket[case1]
+REQ-12,positive,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 30, 'lost': True}",70000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_positive_ticket[case2]
+REQ-12,edge,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 1300, 'lost': True}",250000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_edge_ticket_above_cap[case1]

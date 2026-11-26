@@ -1,0 +1,24 @@
+............F.F.........................F.....F........F......FF         [100%]
+=================================== FAILURES ===================================
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_functions.py:43: assert 2 == 1
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_functions.py:43: assert 3 == 2
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_parking.py:30: AssertionError: assert True is False
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_parking.py:56: Failed: DID NOT RAISE <class 'ValueError'>
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_parking.py:118: AssertionError: assert (2, {'59A-123... {}, set(), 0) == (1, {'59A-123... {}, set(), 0)
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_parking.py:168: assert 27000 == (7000 + 70000)
+/Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/test_parking.py:178: assert 207000 == (7000 + 250000)
+- generated xml file: /Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/reports/v1/junit.xml -
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.9.6-final-0 ________________
+
+Coverage JSON written to file reports/v1/coverage.json
+- Generated html report: file:///Users/thiendinh/Documents/ChatGPT/Software%20Testing/STLab03-EduParking/reports/v1/pytest_report.html -
+=========================== short test summary info ============================
+FAILED test_functions.py::TestReq02::test_edge_duration[case4] - assert 2 == 1
+FAILED test_functions.py::TestReq02::test_edge_duration[case6] - assert 3 == 2
+FAILED test_parking.py::TestReq06::test_edge_debt[case2] - AssertionError: as...
+FAILED test_parking.py::TestReq06::test_negative_debt_limit - Failed: DID NOT...
+FAILED test_parking.py::TestReq09::test_edge_duplicate_preserves_state - Asse...
+FAILED test_parking.py::TestReq12::test_positive_ticket[case2] - assert 27000...
+FAILED test_parking.py::TestReq12::test_edge_ticket_above_cap[case1] - assert...
+7 failed, 57 passed in 0.10s
