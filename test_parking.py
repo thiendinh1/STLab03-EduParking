@@ -79,6 +79,12 @@ class TestReq07(LotCase):
         assert self.lot.occupied == 1
         assert self.lot.inside[A] == ("CAR", START)
 
+    def test_negative_denied_plate_not_recorded(self):
+        before = snapshot(self.lot)
+        with pytest.raises(ValueError, match=r"^NOT_ALLOWED$"):
+            self.lot.check_in("bad", "CAR", START)
+        assert snapshot(self.lot) == before
+
 class TestReq08(LotCase):
     def test_negative_full(self):
         self.lot.check_in(A, "CAR", START)
@@ -104,6 +110,15 @@ class TestReq08(LotCase):
             self.lot.check_in(A, "TRUCK", START)
         assert snapshot(self.lot) == before
 
+    def test_positive_entry_after_space_freed(self):
+        self.lot.check_in(A, "CAR", START)
+        self.lot.check_in(B, "CAR", START)
+        self.lot.check_out(A, START)
+        plate = "59C-12345"
+        self.lot.check_in(plate, "CAR", START)
+        assert self.lot.occupied == 2
+        assert set(self.lot.inside) == {B, plate}
+
 class TestReq09(LotCase):
     def test_negative_duplicate_error(self):
         self.lot.check_in(A, "CAR", START)
@@ -116,6 +131,13 @@ class TestReq09(LotCase):
         with pytest.raises(ValueError, match=r"^ALREADY_INSIDE$"):
             self.lot.check_in(A, "MOTORBIKE", START + timedelta(minutes=2))
         assert snapshot(self.lot) == before
+
+    def test_positive_returning_plate(self):
+        self.lot.check_in(A, "CAR", START)
+        self.lot.check_out(A, START)
+        self.lot.check_in(A, "MOTORBIKE", START)
+        assert self.lot.inside == {A: ("MOTORBIKE", START)}
+        assert self.lot.occupied == 1
 
 class TestReq10(LotCase):
     def test_positive_removes_car(self):
@@ -144,6 +166,13 @@ class TestReq10(LotCase):
             self.lot.check_out(A, START - timedelta(seconds=1))
         assert snapshot(self.lot) == before
 
+    def test_edge_checkout_at_entry(self):
+        self.lot.check_in(A, "CAR", START)
+        fee = self.lot.check_out(A, START)
+        assert fee == 20000
+        assert self.lot.revenue == 20000
+        assert self.lot.occupied == 0 and self.lot.inside == {}
+
 class TestReq11(LotCase):
     def test_negative_absent(self):
         before = snapshot(self.lot)
@@ -157,6 +186,12 @@ class TestReq11(LotCase):
         with pytest.raises(ValueError, match=r"^NOT_INSIDE$"):
             self.lot.check_out(A, START)
         assert snapshot(self.lot) == before
+
+    def test_positive_present_plate(self):
+        self.lot.check_in(B, "MOTORBIKE", START)
+        fee = self.lot.check_out(B, START + timedelta(minutes=30))
+        assert fee == self.lot.revenue == 5000
+        assert self.lot.occupied == 0 and self.lot.inside == {}
 
 class TestReq12(LotCase):
     @pytest.mark.parametrize('minutes, lost, expected', [(30, False, 20000), (30, True, 70000)], ids=['case1', 'case2'])
@@ -178,4 +213,11 @@ class TestReq12(LotCase):
         assert self.lot.revenue == 7000 + expected
         assert self.lot.occupied == 0
         assert self.lot.inside == {}
+
+    def test_negative_lost_ticket_absent(self):
+        self.lot.revenue = 7000
+        before = snapshot(self.lot)
+        with pytest.raises(ValueError, match=r"^NOT_INSIDE$"):
+            self.lot.check_out(A, START, lost_ticket=True)
+        assert snapshot(self.lot) == before
 

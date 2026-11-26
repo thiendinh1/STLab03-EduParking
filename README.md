@@ -2,7 +2,7 @@
 
 Lê Phan Thành Thiên Định · 23110074 · Software Testing
 
-Ứng dụng Python quản lý bãi xe, kiểm thử 12 requirement bằng pytest. Phiên bản v1 có 57 PASS, 7 FAIL trên 64 ca. Bốn bản sửa đưa v2 lên 64 PASS. Cả hai lần đạt 100% line và branch coverage. Sáu mutant độc lập đều bị phát hiện.
+Ứng dụng Python quản lý bãi xe, kiểm thử 12 requirement bằng pytest. Phiên bản v1 có 63 PASS, 7 FAIL trên 70 ca. Bốn bản sửa đưa v2 lên 70 PASS. Cả hai lần đạt 100% line và branch coverage. Sáu mutant độc lập đều bị phát hiện.
 
 ## Chạy notebook
 

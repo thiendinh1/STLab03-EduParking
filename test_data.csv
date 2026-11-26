@@ -1,4 +1,4 @@
-REQ,Loại,Tiền điều kiện,Input,Expected,Căn cứ,Assertion,Test
+﻿REQ,Loại,Tiền điều kiện,Input,Expected,Căn cứ,Assertion,Test
 REQ-01,positive,Hàm thuần,{'plate': '59A-12345'},True,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_positive_plate_format[case1]
 REQ-01,negative,Hàm thuần,{'plate': ''},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case1]
 REQ-01,negative,Hàm thuần,{'plate': '59a-12345'},False,"Biển số đúng dạng NNL-NNNNN (2 số, 1 chữ hoa, gạch nối, 5 số), ví dụ 59A-12345",boolean,test_negative_plate_format[case2]
@@ -50,16 +50,22 @@ REQ-06,negative,Biển sai và TRUCK,Biển sai và TRUCK,NOT_ALLOWED; state gi�
 REQ-07,positive,"Bãi trống, nhận A/CAR","Bãi trống, nhận A/CAR","1 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_positive_first_entry
 REQ-07,edge,"B đã vào, nhận A/CAR","B đã vào, nhận A/CAR","2 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_edge_last_space
 REQ-07,positive,"Bãi trống, nhận A/CAR","Bãi trống, nhận A/CAR","1 xe, A=(CAR, START)","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",equality,test_positive_recorded_vehicle
+REQ-07,negative,Bãi trống,"check_in(""bad"", CAR)","NOT_ALLOWED, số xe và bản ghi giữ nguyên","Check-in thành công: ghi nhận xe, số xe trong bãi tăng 1",raises + state,test_negative_denied_plate_not_recorded
 REQ-08,negative,"Bãi 2/2, biển mới","Bãi 2/2, biển mới",LOT_FULL; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_negative_full
 REQ-08,edge,"Bãi 2/2, A đã ở trong","Bãi 2/2, A đã ở trong",LOT_FULL; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_edge_full_before_duplicate
 REQ-08,negative,"Bãi đầy, trùng biển, TRUCK","Bãi đầy, trùng biển, TRUCK",INVALID_VEHICLE; state giữ nguyên,Bãi đầy báo LOT_FULL; dữ liệu không đổi,raises + state,test_negative_vehicle_before_full
+REQ-08,positive,"Bãi đầy, A vừa ra","check_in(C, CAR)","Nhận C, occupied = 2, B còn trong bãi",Bãi đầy báo LOT_FULL; dữ liệu không đổi,equality,test_positive_entry_after_space_freed
 REQ-09,negative,"A đã vào, còn 1 chỗ","A đã vào, còn 1 chỗ",ALREADY_INSIDE,Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi,raises,test_negative_duplicate_error
 REQ-09,edge,"A đã vào, nhập lại với loại/giờ khác","A đã vào, nhập lại với loại/giờ khác",ALREADY_INSIDE; state giữ nguyên,Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi,raises + state,test_edge_duplicate_preserves_state
+REQ-09,positive,A đã check-out,A vào lại với MOTORBIKE,"Ghi lượt mới, occupied = 1",Xe đang ở trong bãi check-in lại báo ALREADY_INSIDE; số xe không đổi,equality,test_positive_returning_plate
 REQ-10,positive,"Chỉ A, ra sau 30 phút, thu cũ 7.000","Chỉ A, ra sau 30 phút, thu cũ 7.000","Phí 20.000, thu 27.000, xóa riêng A","Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",equality,test_positive_removes_car
 REQ-10,positive,"A và B, ra sau 30 phút, thu cũ 7.000","A và B, ra sau 30 phút, thu cũ 7.000","Phí 20.000, thu 27.000, xóa riêng A","Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",equality,test_positive_keeps_other
 REQ-10,negative,A ra sớm 1 giây,A ra sớm 1 giây,INVALID_TIME; state giữ nguyên,"Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",raises + state,test_negative_clock_reversed
+REQ-10,edge,CAR vừa vào,Ra đúng thời điểm vào,"Phí và doanh thu 20.000đ, bãi trống","Check-out: trả về phí, số xe giảm 1, xóa xe khỏi bãi, doanh thu CỘNG DỒN",equality,test_edge_checkout_at_entry
 REQ-11,negative,"Bãi trống, A vắng","Bãi trống, A vắng",NOT_INSIDE; state giữ nguyên,Check-out xe không có trong bãi báo NOT_INSIDE,raises + state,test_negative_absent
 REQ-11,edge,"B đã vào, A vắng","B đã vào, A vắng",NOT_INSIDE; state giữ nguyên,Check-out xe không có trong bãi báo NOT_INSIDE,raises + state,test_edge_other_car
+REQ-11,positive,B đang gửi MOTORBIKE,B ra sau 30 phút,Thu 5.000đ và xóa B,Check-out xe không có trong bãi báo NOT_INSIDE,equality,test_positive_present_plate
 REQ-12,positive,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 30, 'lost': False}",20000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_positive_ticket[case1]
 REQ-12,positive,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 30, 'lost': True}",70000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_positive_ticket[case2]
 REQ-12,edge,"CAR A, thu cũ 7.000; expected là phí và phần tăng doanh thu","{'minutes': 1300, 'lost': True}",250000,Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,equality,test_edge_ticket_above_cap[case1]
+REQ-12,negative,"Bãi trống, doanh thu 7.000đ","A vắng, yêu cầu trả xe mất vé","NOT_INSIDE, không ghi phụ thu",Mất vé: cộng phụ thu 50.000đ vào phí VÀ vào doanh thu,raises + state,test_negative_lost_ticket_absent

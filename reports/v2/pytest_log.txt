@@ -1,8 +1,8 @@
-................................................................         [100%]
-- generated xml file: /Users/thiendinh/Documents/ChatGPT/Software Testing/STLab03-EduParking/reports/v2/junit.xml -
+......................................................................   [100%]
+---------- generated xml file: /private/tmp/st70/reports/v2/junit.xml ----------
 ================================ tests coverage ================================
 _______________ coverage: platform darwin, python 3.9.6-final-0 ________________
 
 Coverage JSON written to file reports/v2/coverage.json
-- Generated html report: file:///Users/thiendinh/Documents/ChatGPT/Software%20Testing/STLab03-EduParking/reports/v2/pytest_report.html -
-64 passed in 0.09s
+- Generated html report: file:///private/tmp/st70/reports/v2/pytest_report.html -
+70 passed in 0.10s
