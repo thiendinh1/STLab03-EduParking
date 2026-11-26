@@ -6,7 +6,7 @@ Lê Phan Thành Thiên Định · 23110074 · Software Testing
 
 ## Chạy notebook
 
-Mở [notebook trên Colab](https://colab.research.google.com/github/thiendinh1/STLab03-EduParking/blob/main/23110074_LePhanThanhThienDinh_STLab03.ipynb), chọn **Runtime → Run all** trong phiên mới. Notebook tự tạo các file trong thư mục đang chạy, bắt đầu bằng mã v1 và kết thúc bằng v2. Có thể chạy tương tự từ Jupyter trong thư mục trống.
+Mở [notebook trên Colab](https://colab.research.google.com/github/thiendinh1/STLab03-EduParking/blob/main/23110074_LePhanThanhThienDinh_STLab03.ipynb), chọn **Runtime → Run all** trong phiên mới. Notebook tự tạo các file trong thư mục đang chạy, bắt đầu bằng mã v1 và kết thúc bằng v2.
 
 ## Chạy regression tại máy
 
